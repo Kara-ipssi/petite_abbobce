@@ -1,0 +1,35 @@
+<%- include('../layouts/head') %>
+<%- include('../layouts/header') %>
+
+<h1>
+    Page de l'annnonce <%= annonce._id%>
+</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Ville</th>
+        <th>Adresse</th>
+        <th>Code postal</th>
+        <th>Prix</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= annonce.titre %></td>
+            <td><%= annonce.ville%></td>
+            <td><%= annonce.adresse %></td>
+            <td><%= annonce.code_postal %></td>
+            <td><%= annonce.prix %></td>
+            <td><%= annonce.image %></td>
+            <td> <a class="btn btn-warning" href='/annonce/<%= annonce._id %>/modifier'>Modifier</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/annonces">Retour</a>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,67 @@
+<%- include('../layouts/head') %>
+<%- include('../layouts/header') %>
+
+<h1 style="text-align: center">Liste des annonces </h1>
+<!--
+<table class="table">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Ville</th>
+        <th>Adresse</th>
+        <th>Code postal</th>
+        <th>Prix</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% annonces.forEach((annonce) => { %>
+        <tr id="<%= annonce._id %>">
+            <td><%= annonce.titre %></td>
+            <td><%= annonce.ville%></td>
+            <td><%= annonce.adresse %></td>
+            <td><%= annonce.code_postal %></td>
+            <td><%= annonce.prix %></td>
+            <td> <a class="btn btn-success btn-sm" href='/annonce/<%= annonce._id %>/afficher'>Afficher</a> <button class="btn btn-danger btn-sm" onClick="deleteAnnonce('<%= annonce._id %>')">Supprimer</button></td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+-->
+
+<div class="container">
+    <div id="listeAnnonce" class="row">
+        <% annonces.forEach((annonce) => { %>
+        <div class="card" id="<%= annonce._id %>" style="width: 18rem; margin-left: 10px" class="col-md-6 col-lg-6 col-xl-6">
+            <img src="<%= annonce.image %>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= annonce.titre %></h5>
+                <p class="card-text"><%= annonce.description %></p>
+                <a class="btn btn-success " href='/annonce/<%= annonce._id %>/afficher'>Afficher</a>
+                <button class="btn btn-danger btn-sm" onClick="deleteAnnonce('<%= annonce._id %>')">Supprimer</button>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+
+<script>
+    function deleteAnnonce(id){
+        event.preventDefault();
+        if(confirm("voulez vous vraiment supprimer cette annonce ?")){
+            fetch(`http://localhost:3000/annonce/${id}`, {
+                method: 'delete',
+            })
+                .then((data) => data.json())
+                .then((json) => {
+                    let div = document.getElementById(json._id)
+                    div.remove();
+                })
+                .catch((err) => console.error(err))
+        }
+    }
+</script>
+
+<%- include('../layouts/footer') %>

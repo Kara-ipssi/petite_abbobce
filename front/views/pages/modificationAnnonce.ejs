@@ -1,0 +1,78 @@
+<%- include('../layouts/head') %>
+<%- include('../layouts/header') %>
+
+<h1>
+    Page de Modification d'annonce
+</h1>
+
+<div style="width: 600px; margin: auto;">
+    <form class="row g-3">
+        <div class="col-md-12">
+            <label for="titre" class="form-label">Titre</label>
+            <input type="text" class="form-control" id="titre" value="<%= annonce.titre %>">
+        </div>
+        <div class="col-12">
+            <label for="adresse" class="form-label">Adresse</label>
+            <input type="text" class="form-control" id="adresse" placeholder="1234 rue du Pape François" value="<%= annonce.adresse %>">
+        </div>
+        <div class="col-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" placeholder="description de l'annonce" ><%= annonce.description %></textarea>
+        </div>
+        <div class="col-12">
+            <label for="image" class="form-label">Image</label>
+            <input type="text" class="form-control" id="image" placeholder="lien de votre image exemple : https://pngimg.com/uploads/mario/mario_PNG53.png" value="<%= annonce.image%>">
+        </div>
+        <div class="col-md-6">
+            <label for="ville" class="form-label">Ville</label>
+            <input type="text" class="form-control" id="ville" value="<%= annonce.ville %>">
+        </div>
+        <div class="col-md-2">
+            <label for="code_postal" class="form-label">Code postal</label>
+            <input type="number" class="form-control" id="code_postal" value="<%= annonce.code_postal %>">
+        </div>
+        <div class="col-md-4">
+            <label for="prix" class="form-label">Prix</label>
+            <input type="number" class="form-control" id="prix" value="<%= annonce.prix %>">
+        </div>
+        <div class="col-12">
+            <button type="submit" onclick="modifierAnnonce('<%= annonce._id %>')" class="btn btn-warning">Modifier</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function modifierAnnonce(id) {
+        let image = "";
+        if (document.getElementById("image").value !== ""){
+            image = document.getElementById("image").value;
+        }
+        else{
+            image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png";
+        }
+        event.preventDefault();
+        fetch(`http://localhost:3000/annonce/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                titre: document.getElementById('titre').value,
+                adresse: document.getElementById('adresse').value,
+                description: document.getElementById('description').value,
+                ville: document.getElementById('ville').value,
+                code_postal: parseInt(document.getElementById('code_postal').value),
+                prix: parseInt(document.getElementById('prix').value),
+                image,
+            }),
+            headers: {
+                'Content-type': 'application/json',
+            }
+        })
+            .then((data) => data.json())
+            .then((json) => {
+                document.location.href=`/annonce/${json._id}/afficher`;
+                console.log(json)
+            })
+            .catch((err) => console.error(err))
+    }
+</script>
+
+<%- include('../layouts/footer') %>
