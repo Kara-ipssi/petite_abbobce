@@ -8,3 +8,26 @@ création,suppression,modification et affichage de petites annonces.
 ### Il faut aussi avoir installer ``nodemon`` avec la commande `npm install -g nodemon`
 
 ### cette application utilise un serveur `express` et un base de données noSQL avec `mongodb`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Si vous rencontrez un problème dans le code, vous pouvez me contacter par email : `coulibaly.kpro@gmail.com`
